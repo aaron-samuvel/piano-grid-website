@@ -112,19 +112,23 @@
   menu.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') === 'true'; menu.setAttribute('aria-expanded', String(!open)); document.querySelector('.main-nav').classList.toggle('mobile-open', !open); });
   document.querySelectorAll('.main-nav a').forEach(link => link.addEventListener('click', () => { menu.setAttribute('aria-expanded', 'false'); document.querySelector('.main-nav').classList.remove('mobile-open'); }));
   $('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
-  const heroStage = document.querySelector('.hero-art');
-  if (heroStage && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    heroStage.addEventListener('pointermove', event => {
-      const bounds = heroStage.getBoundingClientRect();
-      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-      heroStage.style.setProperty('--tilt-x', `${(x * 7).toFixed(2)}deg`);
-      heroStage.style.setProperty('--tilt-y', `${(-y * 7).toFixed(2)}deg`);
-    });
-    heroStage.addEventListener('pointerleave', () => {
-      heroStage.style.setProperty('--tilt-x', '0deg');
-      heroStage.style.setProperty('--tilt-y', '0deg');
-    });
-  }
+  const heroVideo = document.querySelector('.hero-video');
+  const videoToggle = $('video-toggle');
+  const updateVideoToggle = () => {
+    const isPlaying = !heroVideo.paused;
+    videoToggle.setAttribute('aria-pressed', String(isPlaying));
+    videoToggle.setAttribute('aria-label', `${isPlaying ? 'Pause' : 'Play'} piano video`);
+    videoToggle.querySelector('.video-toggle-label').textContent = isPlaying ? 'PAUSE VIDEO' : 'PLAY VIDEO';
+    videoToggle.querySelector('.video-toggle-icon').textContent = isPlaying ? 'Ⅱ' : '▶';
+  };
+  heroVideo.addEventListener('play', updateVideoToggle);
+  heroVideo.addEventListener('pause', updateVideoToggle);
+  videoToggle.addEventListener('click', () => {
+    if (heroVideo.paused) heroVideo.play().catch(() => showToast('Video playback is unavailable in this browser.'));
+    else heroVideo.pause();
+  });
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) heroVideo.pause();
+  else heroVideo.play().catch(() => {});
+  updateVideoToggle();
   renderLessons(); renderChallenge(); renderProgress();
 })();

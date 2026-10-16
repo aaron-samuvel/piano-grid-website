@@ -4,7 +4,7 @@ A responsive, static website for Piano Grid, a daily piano note-training experie
 
 ## Website
 
-The site is plain HTML, CSS, and JavaScript. It includes a responsive landing page, a playable one-octave note-finding exercise with browser-generated tones, local progress and XP, broad workbook practice groups, and responsive navigation. Progress is stored in the current browser using `localStorage`.
+The site is plain HTML, CSS, and JavaScript. It includes a responsive landing page, a playable one-octave note-finding exercise with browser-generated tones, local progress and XP, broad workbook practice groups, and responsive navigation. The home hero uses the supplied 3D piano video, with an autoplaying muted loop, a poster fallback, and a pause/play control. Progress is stored in the current browser using `localStorage`.
 
 The Grid Coach content is a static learning tip. There is no live AI service, login, cloud sync, or hosted PDF in this website. The source workbook was visually reviewed as a 72-page scan without a searchable text layer. The page ranges are broad practice groupings, not claimed chapter boundaries. Learners need to open their own copy of `Notation Workbook.pdf` to view the referenced pages.
 
