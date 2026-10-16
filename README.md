@@ -21,7 +21,7 @@ Then visit `http://localhost:8080`.
 ## Publish to GitHub Pages
 
 1. Create a **public** repository named `piano-grid-website` under `aaron-samuvel`.
-2. From this `website` folder, initialize Git, set the remote, and push the `main` branch:
+2. Push this website-only repository to its `main` branch. Its current Git history is scoped to this folder.
 
    ```sh
    git init
