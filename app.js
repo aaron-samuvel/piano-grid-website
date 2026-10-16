@@ -112,5 +112,19 @@
   menu.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') === 'true'; menu.setAttribute('aria-expanded', String(!open)); document.querySelector('.main-nav').classList.toggle('mobile-open', !open); });
   document.querySelectorAll('.main-nav a').forEach(link => link.addEventListener('click', () => { menu.setAttribute('aria-expanded', 'false'); document.querySelector('.main-nav').classList.remove('mobile-open'); }));
   $('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
+  const heroStage = document.querySelector('.hero-art');
+  if (heroStage && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    heroStage.addEventListener('pointermove', event => {
+      const bounds = heroStage.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      heroStage.style.setProperty('--tilt-x', `${(x * 7).toFixed(2)}deg`);
+      heroStage.style.setProperty('--tilt-y', `${(-y * 7).toFixed(2)}deg`);
+    });
+    heroStage.addEventListener('pointerleave', () => {
+      heroStage.style.setProperty('--tilt-x', '0deg');
+      heroStage.style.setProperty('--tilt-y', '0deg');
+    });
+  }
   renderLessons(); renderChallenge(); renderProgress();
 })();
